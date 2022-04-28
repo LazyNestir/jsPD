@@ -1,6 +1,7 @@
 {
-  "name": "np.3dglo",
+  "name": "3dglo",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -8,10 +9,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2"
-  },
-  "description": ""
+  }
 }

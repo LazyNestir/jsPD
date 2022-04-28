@@ -1,50 +1,55 @@
 const modal = () => {
     const modal = document.querySelector('.popup')
+    const modalContent = document.querySelector('.popup-content')
     const buttons = document.querySelectorAll('.popup-btn')
     const closeBtn = modal.querySelector('.popup-close')
-    const modalContent = document.querySelector('.popup-content')
-    
-    let intervalID
-    let count = -100
-    
-    modal.style.display = ''
-    modalContent.style.transform = `translateX(${count}%)`
 
-    const counter = () => {
-        count += 4
-        console.log(count);
+    let count = -38
+    let intervalId
+    modalContent.style.left = `${count}%`
+
+    
+    const disableAnims = (count) => {           
+        modalContent.style.left = `${count}%`
     }
 
-    const modalOpen = () => {
-        counter()
-        modalContent.style.transform = `translateX(${count}%)`
-        if (count >= 0) {
-            clearInterval(intervalID)
+    const counterOpen = () => {
+        count += 4
+        disableAnims(count)
+        if (count >= 40) {
+            clearInterval(intervalId)
+        }
+    }
+    const counterClose = () => {
+        count -= 4
+        disableAnims(count)
+        if (count <= -38) {
+            clearInterval(intervalId)
+            modal.style.display = ''
+            count = -38
         }
     }
 
+
     buttons.forEach(btn => {
-        btn.addEventListener('click', () =>{
-            if (innerWidth <= 768){
+        btn.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                modalContent.style.left = ``
                 modal.style.display = 'block'
-                modalContent.style.transform = `translateX(-15%)`
-                modalContent.style.display = 'block'
             } else {
-            modal.style.display = 'block'
-            intervalID = setInterval(() => {
-                modalOpen()
-            }, 5);
+                modal.style.display = 'block'
+                intervalId = setInterval(counterOpen, 10)
             }
         })
     })
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = ''
-        count = -100
-        modalContent.style.transform = `translateX(${count}%)`
+    closeBtn.addEventListener('click' , () => {
+        if (window.innerWidth > 768) {
+            intervalId = setInterval(counterClose, 10)
+        } else {
+            modal.style.display = ''
+        }
     })
 
-    
 }
 
 export default modal
